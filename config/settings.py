@@ -59,7 +59,7 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'], #Esto es para 
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -126,3 +126,8 @@ USE_TZ = True
 STATIC_URL = 'static/'
     #
 AUTH_USER_MODEL = 'users.Usuario'
+
+STATIC_URL = 'static/'
+STATICFILES_DIRS = [            #Esto es para q se pueda conectar el css
+    BASE_DIR / 'static',        #activa el uso de la etiqueta link para usar los estilos
+]
