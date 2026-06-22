@@ -77,13 +77,17 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
+    #Establecemos la conexion a mysql, antes estaba com post.
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',  # Le dice a Django que hablará con MySQL
+        'NAME': 'nexus_db',                    # El nombre exacto de la base de datos vacía en Workbench
+        'USER': 'root',                        # El usuario por defecto de XAMPP
+        'PASSWORD': '',                        # XAMPP por defecto viene sin contraseña (vacío)
+        'HOST': '127.0.0.1',                   # Tu servidor local
+        'PORT': '3306',                        # El puerto por defecto de MySQL
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/6.0/ref/settings/#auth-password-validators
@@ -120,3 +124,5 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 STATIC_URL = 'static/'
+    #
+AUTH_USER_MODEL = 'users.Usuario'
