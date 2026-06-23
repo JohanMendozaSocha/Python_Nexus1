@@ -4,10 +4,9 @@ from django.views.generic import RedirectView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-
     path('users/', include('users.urls')),
-
     path('', RedirectView.as_view(pattern_name='login', permanent=False)),
-
     path('foros/', include('forums.urls')),
+    # Ruta de eventos recuperada de GitHub
+    path('eventos/', include('events.urls')),
 ]
