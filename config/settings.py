@@ -59,7 +59,7 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'], #Esto es para 
+        'DIRS': [BASE_DIR / 'templates'], # Directorio global de plantillas 
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -77,17 +77,17 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
-    #Establecemos la conexion a mysql, antes estaba com post.
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',  # Le dice a Django que hablará con MySQL
-        'NAME': 'nexus_db',                    # El nombre exacto de la base de datos vacía en Workbench
+        'NAME': 'nexus_db',                    # El nombre exacto de la base de datos en MySQL
         'USER': 'root',                        # El usuario por defecto de XAMPP
         'PASSWORD': '',                        # XAMPP por defecto viene sin contraseña (vacío)
         'HOST': '127.0.0.1',                   # Tu servidor local
         'PORT': '3306',                        # El puerto por defecto de MySQL
     }
 }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/6.0/ref/settings/#auth-password-validators
@@ -111,21 +111,31 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/6.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'es-co'                  # Configurado para español de Colombia
 
-TIME_ZONE = 'America/Bogota'  # O tu zona horaria local para que coincida con "ahora"
+
+
+TIME_ZONE = 'America/Bogota'             # Configurado para tu zona horaria local
+
 
 USE_I18N = True
 
 USE_TZ = True
 
 
+# Custom User Model
+AUTH_USER_MODEL = 'users.Usuario'        # Modelo personalizado de usuario
+
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
-AUTH_USER_MODEL = 'users.Usuario'
+
 
 STATIC_URL = 'static/'
-STATICFILES_DIRS = [            #Esto es para q se pueda conectar el css
-    BASE_DIR / 'static',        #activa el uso de la etiqueta link para usar los estilos
+STATICFILES_DIRS = [                     # Configuración de carpeta estática global
+    BASE_DIR / 'static',        
 ]
+
+
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

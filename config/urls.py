@@ -1,17 +1,12 @@
 from django.contrib import admin
 from django.urls import path, include
+from django.views.generic import RedirectView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-
-
-
-    # Le decimos al jefe que cuando alguien busque "eventos/", 
-    # vaya y mire el archivo urls.py interno de la app 'event'
-    path('eventos/', include('events.urls')),
-    
-
-
+    path('users/', include('users.urls')),
+    path('', RedirectView.as_view(pattern_name='login', permanent=False)),
     path('foros/', include('forums.urls')),
+    # Ruta de eventos recuperada de GitHub
+    path('eventos/', include('events.urls')),
 ]
-

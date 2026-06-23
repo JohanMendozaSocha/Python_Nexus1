@@ -1,0 +1,69 @@
+{% load static %}
+<!DOCTYPE HTML>
+<html lang="es">
+<head>
+    <title>Registro - NEXUS</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="{% static 'main.css' %}" />
+    <link rel="stylesheet" href="{% static 'registro.css' %}" />
+</head>
+<body class="is-preload">
+<div id="wrapper">
+    <header id="header">
+        <h1>Crear Cuenta</h1>
+        <p>Únete a la comunidad de Nexus</p>
+    </header>
+
+    <div id="main">
+        <section class="main">
+            
+            {% if messages %}
+                {% for message in messages %}
+                    <div style="color: #e37682; text-align: center; margin-bottom: 1rem; font-weight: bold;">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+            <form method="post" action="{% url 'register' %}">
+                {% csrf_token %}
+                <div class="row gtr-uniform">
+                    
+                    <div class="col-12">
+                        <input type="text" name="username" placeholder="Nombre de usuario" required />
+                    </div>
+
+                    <div class="col-12">
+                        <input type="email" name="email" placeholder="Correo electrónico" required />
+                    </div>
+
+                    <div class="col-12">
+                        <input type="password" name="password" placeholder="Contraseña" required />
+                    </div>
+
+                    <div class="col-12">
+                        <input type="password" name="confirm_password" placeholder="Confirmar contraseña" required />
+                    </div>
+
+                    <div class="col-12">
+                        <ul class="actions special">
+                            <li><input type="submit" value="Registrarse" class="primary" /></li>
+                        </ul>
+                    </div>
+                </div>
+            </form>
+
+            <footer style="text-align: center; margin-top: 2rem;">
+                <p>
+                    ¿Ya tienes cuenta? <a href="{% url 'login' %}">Inicia sesión aquí</a>
+                </p>
+            </footer>
+        </section>
+    </div>
+</div>
+
+<script src="{% static 'main.js' %}"></script>
+<script src="{% static 'registro.js' %}"></script>
+</body>
+</html>
