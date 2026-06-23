@@ -20,6 +20,7 @@ class Evento(models.Model):
         null=True, 
         blank=True
     )
-
+    #Para guardar quiénes se unen al evento (botón "Asistiré")
+    asistentes = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='eventos_asistidos', blank=True)
     def __str__(self):
         return self.titulo

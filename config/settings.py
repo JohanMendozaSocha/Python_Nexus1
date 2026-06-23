@@ -113,7 +113,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/Bogota'  # O tu zona horaria local para que coincida con "ahora"
 
 USE_I18N = True
 
@@ -123,8 +123,6 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
-STATIC_URL = 'static/'
-    #
 AUTH_USER_MODEL = 'users.Usuario'
 
 STATIC_URL = 'static/'

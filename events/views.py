@@ -3,54 +3,71 @@ from django.contrib.auth.decorators import login_required
 from .models import Evento
 from .forms import EventoForm
 
-# 1. VISTA PRINCIPAL: LISTAR, BUSCAR Y MOSTRAR EL MODAL DE CREAR
 def panel_eventos(request):
-    # Aquí asumimos temporalmente un usuario para que no se estalle si no hay login hecho
-    # Cuando tengas el login listo, cambias esto por: usuario_actual = request.user
     usuario_actual = request.user if request.user.is_authenticated else None
+    ver_mis_eventos = request.GET.get('mis_eventos') == 'true'
+    
+    if ver_mis_eventos and usuario_actual:
+        eventos = Evento.objects.filter(id_creador=usuario_actual).order_by('-created_at')
+    else:
+        eventos = Evento.objects.all().order_by('-created_at')
 
-    # Traer solo los eventos creados por este usuario
-    eventos = Evento.objects.filter(id_creador=usuario_actual) if usuario_actual else Evento.objects.all()
-
-    # Lógica de la barra de búsqueda (si el usuario escribe algo en el input)
     buscar = request.GET.get('buscar')
     if buscar:
-        eventos = eventos.filter(nombre__icontains=buscar) # Filtra por nombre sin importar mayúsculas
+        eventos = eventos.filter(titulo__icontains=buscar)
 
-    # Lógica para procesar el formulario de CREAR (el que va dentro del modal)
+    context = {
+        'eventos': eventos,
+        'buscar': buscar if buscar else '',
+        'ver_mis_eventos': ver_mis_eventos
+    }
+    return render(request, 'event/createEvent.html', context)
+
+@login_required
+def crear_evento(request):
     if request.method == 'POST':
         form = EventoForm(request.POST)
         if form.is_valid():
             evento = form.save(commit=False)
-            if usuario_actual:
-                evento.id_creador = usuario_actual
+            evento.id_creador = request.user
             evento.save()
             return redirect('panel_eventos')
     else:
         form = EventoForm()
+    
+    return render(request, 'event/formsEvent.html', {'form': form})
 
-    context = {
-        'eventos': eventos,
-        'form': form,
-        'buscar': buscar if buscar else ''
-    }
-    return render(request, 'event/createEvent.html', context)
-
-
-# 2. VISTA PARA ACTUALIZAR (EDITAR) UN EVENTO
+@login_required
 def editar_evento(request, pk):
-    evento = get_object_or_404(Evento, pk=pk)
+    # 🌟 CORREGIDO: Se agregó el ', pk' arriba para que Django sepa qué evento editar
+    evento = get_object_or_404(Evento, pk=pk, id_creador=request.user)
     if request.method == 'POST':
         form = EventoForm(request.POST, instance=evento)
         if form.is_valid():
             form.save()
             return redirect('panel_eventos')
+    else:
+        form = EventoForm(instance=evento)
+        
+    return render(request, 'event/formsEvent.html', {'form': form})
+
+@login_required
+def unirse_evento(request, pk):
+    evento = get_object_or_404(Evento, pk=pk)
+    if request.user in evento.asistentes.all():
+        evento.asistentes.remove(request.user)
+    else:
+        evento.asistentes.add(request.user)
     return redirect('panel_eventos')
 
-
-# 3. VISTA PARA ELIMINAR (BORRAR) UN EVENTO
+@login_required
 def eliminar_evento(request, pk):
+    evento = get_object_or_404(Evento, pk=pk, id_creador=request.user)
+    evento.delete()
+    return redirect('panel_eventos')
+
+@login_required
+def reportar_evento(request, pk):
     evento = get_object_or_404(Evento, pk=pk)
-    if request.method == 'POST':
-        evento.delete()
+    print(f"El usuario {request.user.username} reportó el evento {evento.titulo}")
     return redirect('panel_eventos')

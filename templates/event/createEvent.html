@@ -3,141 +3,99 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Nexus - Mis Eventos</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nexus - Panel de Eventos</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'estilos.css' %}">
+    <link rel="stylesheet" href="{% static 'createEvent.css' %}">
 </head>
-<body class="bg-light p-4">
+<body>
 
-<div class="container bg-white p-4 rounded shadow-sm">
-    <h2 class="mb-4">Mis Eventos en Nexus</h2>
+<div class="fb-layout">
+    
+    <div class="fb-sidebar">
+        <h1 class="mb-4 text-primary fw-bold">Nexus</h1>
+        
+        <form method="GET" action="{% url 'panel_eventos' %}" class="mb-4">
+            <input type="text" name="buscar" value="{{ buscar }}" class="form-control bg-dark text-white border-secondary" placeholder="🔍 Buscar eventos...">
+        </form>
 
-    <div class="row mb-4">
-        <div class="col-md-8">
-            <form method="GET" action="{% url 'panel_eventos' %}" class="d-flex">
-                <input type="text" name="buscar" value="{{ buscar }}" class="form-control me-2" placeholder="Buscar evento por nombre...">
-                <button type="submit" class="btn btn-outline-primary">Buscar</button>
-            </form>
+        <div class="list-group mb-4">
+            <a href="{% url 'panel_eventos' %}" class="list-group-item list-group-item-action bg-transparent text-white border-0 {% if not ver_mis_eventos %}fw-bold text-primary bg-secondary{% endif %}">
+                🌐 Descubrir eventos
+            </a>
+            <a href="{% url 'panel_eventos' %}?mis_eventos=true" class="list-group-item list-group-item-action bg-transparent text-white border-0 {% if ver_mis_eventos %}fw-bold text-primary bg-secondary{% endif %}">
+                📅 Mis eventos
+            </a>
         </div>
-        <div class="col-md-4 text-end">
-            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalCrear">
-                + Crear Evento
-            </button>
-        </div>
+
+        <a href="{% url 'crear_evento' %}" class="btn btn-fb-blue w-100 py-2 fw-bold text-center text-decoration-none d-block">
+            + Crear nuevo evento
+        </a>
     </div>
 
-    <table class="table table-hover align-middle">
-        <thead class="table-dark">
-            <tr>
-                <th>Nombre</th>
-                <th>Descripción</th>
-                <th>Fecha</th>
-                <th>Lugar</th>
-                <th class="text-center">Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for evento in eventos %}
-            <tr>
-                <td>{{ evento.nombre }}</td>
-                <td>{{ evento.descripcion }}</td>
-                <td>{{ evento.fecha }}</td>
-                <td>{{ evento.lugar }}</td>
-                <td class="text-center">
-                    <button type="button" class="btn btn-sm btn-warning me-2" data-bs-toggle="modal" data-bs-target="#modalEditar{{ evento.id }}">
-                        Editar
-                    </button>
-                    <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#modalEliminar{{ evento.id }}">
-                        Borrar
-                    </button>
-                </td>
-            </tr>
-
-            <div class="modal fade" id="modalEditar{{ evento.id }}" tabindex="-1" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">Editar Evento</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+    <div class="fb-main-content">
+        <div class="container-fluid">
+            <h2 class="mb-4 fw-bold">
+                {% if ver_mis_eventos %}📋 Mis Eventos Creados{% else %}🔥 Feed de Eventos{% endif %}
+            </h2>
+            
+            <div class="event-grid">
+                {% for evento in eventos %}
+                <div class="event-card mb-4 shadow-sm"> 
+                    <div class="event-card-body p-4"> 
+                        
+                        <div class="event-date text-primary fw-bold mb-2">
+                            📅 {{ evento.f_inicio|date:"d \d\e M, Y - H:i" }}
                         </div>
-                        <form method="POST" action="{% url 'editar_evento' evento.id %}">
-                            {% csrf_token %}
-                            <div class="modal-body">
-                                <div class="mb-3">
-                                    <label class="form-label">Nombre del Evento</label>
-                                    <input type="text" name="nombre" value="{{ evento.nombre }}" class="form-control" required>
-                                </div>
-                                <div class="mb-3">
-                                    <label class="form-label">Descripción</label>
-                                    <textarea name="descripcion" class="form-control" rows="3">{{ evento.descripcion }}</textarea>
-                                </div>
-                                <div class="mb-3">
-                                    <label class="form-label">Fecha</label>
-                                    <input type="text" name="fecha" value="{{ evento.fecha }}" class="form-control">
-                                </div>
-                                <div class="mb-3">
-                                    <label class="form-label">Lugar</label>
-                                    <input type="text" name="lugar" value="{{ evento.lugar }}" class="form-control">
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                                <button type="submit" class="btn btn-warning">Actualizar Cambios</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-
-            <div class="modal fade" id="modalEliminar{{ evento.id }}" tabindex="-1" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title text-danger">⚠️ ¿Confirmar Eliminación?</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        
+                        <div class="event-title h4 text-white fw-bold mb-2">{{ evento.titulo }}</div>
+                        
+                        <div class="event-location text-muted small mb-3">
+                            📍 {{ evento.ubicacion|default:"Lugar no especificado" }}
                         </div>
-                        <form method="POST" action="{% url 'eliminar_evento' evento.id %}">
-                            {% csrf_token %}
-                            <div class="modal-body">
-                                ¿Estás seguro de eliminar el evento <strong>"{{ evento.nombre }}"</strong>?
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                                <button type="submit" class="btn btn-danger">Sí, Eliminar</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
 
-            {% empty %}
-            <tr>
-                <td colspan="5" class="text-center text-muted p-4">No tienes eventos creados o no coinciden con la búsqueda.</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-</div>
+                        {% if evento.categoria %}
+                            <span class="badge bg-primary px-3 py-2 mb-3">{{ evento.categoria }}</span>
+                        {% endif %}
 
-<div class="modal fade" id="modalCrear" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Nuevo Evento para Nexus</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        <p class="event-desc text-light mb-4">{{ evento.descripcion }}</p>
+                        
+                        <div class="border-top border-secondary pt-3 mb-3">
+                            <small class="text-muted">
+                                👥 Asistirán: <strong class="text-white">{{ evento.asistentes.count }} personas</strong>
+                            </small>
+                        </div>
+
+                        <div class="d-flex gap-2">
+                            {% if request.user.is_authenticated and request.user == evento.id_creador %}
+                                <a href="{% url 'editar_evento' evento.id %}" class="btn btn-sm btn-warning w-50 fw-bold">⚙️ Editar</a>
+                                <a href="{% url 'eliminar_evento' evento.id %}" class="btn btn-sm btn-danger w-50 fw-bold" onclick="return confirm('¿Seguro que quieres borrar este evento?')">🗑️ Borrar</a>
+                            {% else %}
+                                <form method="POST" action="{% url 'unirse_evento' evento.id %}" class="w-100 m-0">
+                                    {% csrf_token %}
+                                    {% if request.user in evento.asistentes.all %}
+                                          <button type="submit" class="btn btn-secondary w-100 fw-bold active">⭐ Asistiré</button>
+                                    {% else %}
+                                          <button type="submit" class="btn btn-outline-primary w-100 fw-bold">⭐ Unirse</button>
+                                    {% endif %}
+                                </form>
+                    
+                                {% if request.user.is_authenticated %}
+                                    <a href="{% url 'reportar_evento' evento.id %}" class="btn btn-sm btn-outline-danger d-flex align-items-center justify-content-center" onclick="return confirm('¿Quieres reportar este evento?')">🚩</a>
+                                {% endif %}
+                            {% endif %}
+                        </div>
+                    </div> 
+                </div>
+                {% empty %}
+                <div class="text-center py-5">
+                    <p class="text-muted fs-5">No se encontraron eventos disponibles en este momento.</p>
+                </div>
+                {% endfor %}
             </div>
-            <form method="POST" action="{% url 'panel_eventos' %}">
-                {% csrf_token %}
-                <div class="modal-body">
-                    {{ form.as_p }}
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="submit" class="btn btn-success">Guardar Evento</button>
-                </div>
-            </form>
         </div>
     </div>
+    
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
