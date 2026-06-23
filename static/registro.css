@@ -1,0 +1,9 @@
+
+#btnPassword:hover, #btnConfirm:hover {
+    color: #fff !important;
+    transition: 0.3s;
+}
+/* Evita que el texto se encime con el icono */
+input[type="password"], input[type="text"] {
+    padding-right: 45px !important;
+}

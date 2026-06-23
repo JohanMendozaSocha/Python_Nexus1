@@ -1,0 +1,76 @@
+{% load static %}
+<!DOCTYPE HTML>
+<html lang="es">
+<head>
+    <title>Login - NEXUS</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    
+    <link rel="stylesheet" href="{% static 'main.css' %}" />
+    <link rel="stylesheet" href="{% static 'registro.css' %}" />
+</head>
+<body class="is-preload">
+<div id="wrapper">
+    <header id="header">
+        <h1>Iniciar Sesión</h1>
+        <p>Accede a la red de Nexus</p>
+    </header>
+
+    <div id="main">
+        <section class="main">
+            
+            {% if messages %}
+                {% for message in messages %}
+                    <div style="color: #e37682; text-align: center; margin-bottom: 1rem; font-weight: bold;">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+            <form method="post" action="{% url 'login' %}">
+                {% csrf_token %}
+                <div class="row gtr-uniform">
+                    <div class="col-12">
+                        <input type="text" name="username" id="username" placeholder="Nombre de usuario" required />
+                    </div>
+
+                    <div class="col-12">
+                        <div style="position: relative;">
+                            <input type="password" name="password" id="password" placeholder="Contraseña" required />
+                            <span id="btnToggle" class="icon solid fa-eye"
+                                  style="position: absolute; right: 15px; top: 15px; cursor: pointer; color: rgba(255,255,255,0.5);"></span>
+                        </div>
+                    </div>
+
+                    <div class="col-12">
+                        <ul class="actions special">
+                            <li><input type="submit" value="Entrar" class="primary" /></li>
+                        </ul>
+                    </div>
+                </div>
+            </form>
+
+            <footer style="text-align: center; margin-top: 2rem;">
+                <p>
+                    <a href="#">¿Olvidaste tu contraseña?</a><br />
+                    ¿No tienes cuenta? <a href="{% url 'register' %}">Regístrate aquí</a>
+                </p>
+            </footer>
+        </section>
+    </div>
+</div>
+
+<script src="{% static 'main.js' %}"></script>
+<script src="{% static 'registro.js' %}"></script>
+<script>
+    const passInput = document.querySelector('#password');
+    const btn = document.querySelector('#btnToggle');
+    btn.addEventListener('click', () => {
+        const type = passInput.getAttribute('type') === 'password' ? 'text' : 'password';
+        passInput.setAttribute('type', type);
+        btn.classList.toggle('fa-eye');
+        btn.classList.toggle('fa-eye-slash');
+    });
+</script>
+</body>
+</html>
