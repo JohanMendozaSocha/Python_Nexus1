@@ -29,7 +29,22 @@
             <form method="post" action="{% url 'register' %}">
                 {% csrf_token %}
                 <div class="row gtr-uniform">
-                    
+                    <div class="col-12">
+                    <input
+                          type="text"
+                         name="nombres"
+                         placeholder="Nombres"
+                         required
+                            />
+                        </div>
+                        <div class="col-12">
+                        <input
+                         type="text"
+                        name="apellidos"
+                         placeholder="Apellidos"
+                         required
+                        />
+                    </div>
                     <div class="col-12">
                         <input type="text" name="username" placeholder="Nombre de usuario" required />
                     </div>
