@@ -3,7 +3,7 @@ from django.core.validators import EmailValidator
 from django.db import models
 
 
-# Necesitamos un "Manager" personalizado porque cambiaste el campo de login por defecto
+
 class UsuarioManager(BaseUserManager):
     def create_user(self, username, email, password=None, **extra_fields):
         if not email:
@@ -13,7 +13,7 @@ class UsuarioManager(BaseUserManager):
         
         email = self.normalize_email(email)
         user = self.model(username=username, email=email, **extra_fields)
-        user.set_password(password) # Esto encripta la contraseña automáticamente (como BCrypt en Spring)
+        user.set_password(password)
         user.save(using=self._db)
         return user
 

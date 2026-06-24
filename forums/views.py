@@ -115,3 +115,6 @@ def reportar_contenido(request):
             return redirect('forum_detail', foro_id=publicacion.id_foro.id)
             
     return redirect('forum_list')
+# 7. VISTA PERSONALIZADA PARA ERROR 404
+def error_404_view(request, exception):
+    return render(request, '404.html', status=404)

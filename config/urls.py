@@ -10,3 +10,5 @@ urlpatterns = [
     # Ruta de eventos recuperada de GitHub
     path('eventos/', include('events.urls')),
 ]
+
+handler404 = 'forums.views.error_404_view'
