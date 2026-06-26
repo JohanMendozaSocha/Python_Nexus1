@@ -34,7 +34,7 @@ class Usuario(AbstractBaseUser, PermissionsMixin):
 
     #Elimine en la q se definia la contraseña manualemnte, porq la calse usuario esta heredando de abstractbaseUser,
     #para evitar futuros problemas de q dijango de confunde con cual usar.
-    
+
     # Equivalente a @ManyToOne
     rol = models.ForeignKey(
         'Rol',

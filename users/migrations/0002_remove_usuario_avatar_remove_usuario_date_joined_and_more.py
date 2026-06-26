@@ -11,14 +11,6 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RemoveField(
-            model_name='usuario',
-            name='avatar',
-        ),
-        migrations.RemoveField(
-            model_name='usuario',
-            name='date_joined',
-        ),
         migrations.AlterField(
             model_name='usuario',
             name='groups',
