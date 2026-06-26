@@ -1,25 +1,37 @@
 {% extends 'dashboard/base.html' %}
 {% load static %}
 
-{% block title %}Crear Evento - Nexus{% endblock %}
+{% block title %}
+    {% if evento %}Editar Evento - Nexus{% else %}Crear Evento - Nexus{% endif %}
+{% endblock %}
+
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'createEvent.css' %}">
+<style>
+    .search-container-stellar, .search-box-stellar, form[method="GET"] {
+        display: none !important;
+    }
+</style>
 {% endblock %}
+
 {% block content %}
 <div class="form-container-stellar">
     <div class="form-card-stellar">
         <h2>
-            <i class="fa-solid fa-calendar-plus header-icon"></i> Crear Nuevo Evento
+            {% if evento %}
+                <i class="fa-solid fa-calendar-check header-icon"></i> Editar Evento: {{ evento.titulo }}
+            {% else %}
+                <i class="fa-solid fa-calendar-plus header-icon"></i> Crear Nuevo Evento
+            {% endif %}
         </h2>
         
-        <form method="POST" action="{% url 'crear_evento' %}" class="stellar-form">
+        <form method="POST" action="" class="stellar-form" enctype="multipart/form-data">
             {% csrf_token %}
             
             {% for field in form %}
                 <div class="form-group-stellar">
                     <label class="form-label-stellar">{{ field.label }}</label>
                     
-                    {# Renderiza el input dinámico de Django #}
                     <div class="input-field-wrapper">
                         {{ field }}
                     </div>
@@ -35,11 +47,22 @@
             {% endfor %}
 
             <div class="form-actions-stellar">
-                <button type="reset" class="btn-stellar-form btn-stellar-cancel">
-                    <i class="fa-solid fa-broom"></i> Limpiar Campos
-                </button>
+                {% if evento %}
+                    <a href="{% url 'event_detail' evento.pk %}" class="btn-stellar-form btn-stellar-cancel" style="text-decoration: none; display: inline-flex; align-items: center; justify-content: center; gap: 8px;">
+                        <i class="fa-solid fa-xmark"></i> Cancelar
+                    </a>
+                {% else %}
+                    <button type="reset" class="btn-stellar-form btn-stellar-cancel">
+                        <i class="fa-solid fa-broom"></i> Limpiar Campos
+                    </button>
+                {% endif %}
+
                 <button type="submit" class="btn-stellar-form btn-stellar-submit">
-                    <i class="fa-solid fa-cloud-arrow-up"></i> Publicar Evento
+                    {% if evento %}
+                        <i class="fa-solid fa-floppy-disk"></i> Guardar Cambios
+                    {% else %}
+                        <i class="fa-solid fa-cloud-arrow-up"></i> Publicar Evento
+                    {% endif %}
                 </button>
             </div>
         </form>

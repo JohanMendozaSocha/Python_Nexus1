@@ -1,15 +1,17 @@
-/* Contenedor principal de detalles */
+/* 🌌 Contenedor principal de detalles (Tu cuadro oscuro original) */
 .event-detail-container {
     max-width: 900px;
     margin: 50px auto;
-    background: #141828; /* Color oscuro base */
+    background: #141828;
     padding: 40px;
     border-radius: 20px;
     border: 1px solid rgba(140, 201, 240, 0.2);
     color: #e0e0e0;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+    animation: fadeInUpDetail 0.5s ease both;
 }
 
-/* Imagen del evento en detalle */
+/* 🖼️ Imagen del evento */
 .detail-img-wrapper {
     width: 100%;
     height: 350px;
@@ -24,7 +26,25 @@
     object-fit: cover;
 }
 
-/* Títulos y tipografía */
+/* 🏷️ Insignias de Estado */
+.event-status-badge {
+    margin-bottom: 20px;
+}
+
+.status-badge {
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: 0.85em;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.status-badge.active { background-color: #28a745; color: white; }
+.status-badge.ended { background-color: #dc3545; color: white; }
+
+/* ✏️ Títulos y Tipografía */
 .event-detail-title {
     color: #ffffff;
     font-size: 2.5rem;
@@ -39,7 +59,7 @@
     font-weight: 500;
 }
 
-/* Sección de descripción */
+/* 📝 Caja de descripción */
 .description-box {
     line-height: 1.8;
     margin-bottom: 30px;
@@ -48,32 +68,54 @@
     border-radius: 10px;
 }
 
-/* Botones de acción */
+.description-box h3 { color: #fff; margin-top: 0; }
+
+/* 🔘 Grupo de Botones de Acción Perfectos */
 .action-group {
     display: flex;
     gap: 15px;
     margin-top: 30px;
+    flex-wrap: wrap;
+    align-items: center;
 }
 
-.btn-custom {
+.btn-custom, .btn-stellar-delete {
     padding: 12px 25px;
     border-radius: 8px;
-    text-decoration: none;
+    text-decoration: none !important;
     font-weight: 600;
-    transition: all 0.3s;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
 }
 
-.btn-primary-stellar {
-    background: #8cc9f0;
-    color: #141828;
+/* Colores de botones según su rol */
+.btn-primary-stellar { background: #8cc9f0; color: #141828; }
+.btn-outline-stellar { border: 1px solid #8cc9f0; color: #8cc9f0; background: transparent; }
+.btn-join-stellar { background-color: #007bff; color: white; border: none; }
+.btn-danger-stellar { background-color: #dc3545; color: white; border: none; }
+
+/* Botón Eliminar Fino */
+.btn-stellar-delete {
+    background: transparent;
+    border: 1px solid #ff4d4d;
+    color: #ff4d4d;
 }
 
-.btn-outline-stellar {
-    border: 1px solid #8cc9f0;
-    color: #8cc9f0;
-}
-
-.btn-custom:hover {
-    filter: brightness(1.2);
+/* Efectos hover unificados */
+.btn-custom:hover, .btn-stellar-delete:hover {
     transform: translateY(-2px);
+    filter: brightness(1.1);
+}
+.btn-stellar-delete:hover {
+    background: #ff4d4d;
+    color: white;
+    box-shadow: 0 0 15px rgba(255, 77, 77, 0.3);
+}
+
+@keyframes fadeInUpDetail {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
 }
