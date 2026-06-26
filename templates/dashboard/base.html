@@ -1,0 +1,76 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nexus - {% block title %}Dashboard{% endblock %}</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="{% static 'dashboardUser.css' %}">
+    
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+
+<div class="container">
+
+    <div class="sidebar">
+        <h2>NEXUS</h2>
+        <ul>
+            <li>
+                <a href="{% url 'dashboard' %}">
+                    <i class="fa-solid fa-chart-pie sidebar-icon"></i> Dashboard
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'event_list' %}">
+                    <i class="fa-solid fa-compass sidebar-icon"></i> Descubrir Eventos
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'crear_evento' %}">
+                    <i class="fa-solid fa-calendar-plus sidebar-icon"></i> Crear Evento
+                </a>
+            </li>
+            
+            <li>
+                <a href="{% url 'forum_list' %}">
+                    <i class="fa-solid fa-comments sidebar-icon"></i> Descubrir Foros
+                </a>
+            </li>
+
+            <li>
+                <a href="{% url 'forum_create' %}">
+                    <i class="fa-solid fa-comment-medical sidebar-icon"></i> Crear Foro
+                </a>
+            </li>
+
+            <li>
+                <a href="{% url 'mis_foros' %}">
+                    <i class="fa-solid fa-folder sidebar-icon"></i> Mis Foros
+                </a>
+            </li>
+            
+            <li class="sidebar-logout-container">
+                <form action="{% url 'logout' %}" method="post" class="logout-form">
+                    {% csrf_token %}
+                    <button type="submit" class="logout-link">
+                        <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                        <span>Cerrar Sesión</span>
+                    </button>
+                </form>
+            </li>
+        </ul>
+    </div>
+
+    <div class="content">
+        {% block content %}
+        {% endblock %}
+    </div>
+
+</div>
+
+</body>
+</html>

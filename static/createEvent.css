@@ -1,145 +1,234 @@
-body {
-    background-color: #0b0c0e !important; /* Fondo ultra oscuro de Facebook */
-    color: #e4e6eb;
-    font-family: 'Segoe UI', Helvetica, Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    height: 100vh;
-    overflow: hidden;
-}
+/* --- REGIONES DEL CONTENIDO PRINCIPAL --- */
 
-/* Contenedor Principal de Pantalla Dividida */
-.fb-layout {
+/* Contenedor padre para centrar el formulario en el espacio derecho de la dashboard */
+.form-container-stellar {
     display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Alineado arriba para pantallas largas */
+    padding: 40px 20px;
     width: 100%;
-    height: 100%;
+    min-height: 80vh;
 }
 
-/* BANDA IZQUIERDA (Sidebar) */
-.fb-sidebar {
-    width: 360px;
-    background-color: #18191a;
-    border-right: 1px solid #2f3031;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-}
-
-.fb-sidebar h1 {
-    font-size: 24px;
-    font-weight: 700;
-    color: #e4e6eb;
-    margin-bottom: 20px;
-}
-
-/* Botón Azul de Crear estilo Facebook */
-.btn-fb-blue {
-    background-color: #2374e1 !important;
-    color: white !important;
-    font-weight: 600;
-    border-radius: 8px !important;
-    padding: 12px !important;
-    width: 100%;
-    border: none;
-    transition: background 0.2s;
-}
-
-.btn-fb-blue:hover {
-    background-color: #3984ea !important;
-}
-
-/* CONTENIDO DERECHO (Descubrir Eventos) */
-.fb-main-content {
-    flex: 1;
-    padding: 30px;
-    overflow-y: auto;
-    background-color: #0b0c0e;
-}
-
-.fb-main-content h2 {
-    font-size: 24px;
-    font-weight: 700;
-    margin-bottom: 24px;
-}
-
-/* REJILLA DE TARJETAS (Cards) */
-.event-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 16px;
-}
-
-.event-card {
-    background-color: #18191a;
+/* La tarjeta que contiene todo el formulario */
+.form-card-stellar {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 12px;
-    border: 1px solid #2f3031;
-    overflow: hidden;
+    padding: 50px;
+    width: 100%;
+    max-width: 800px; /* Incrementado para expandir el diseño a la derecha */
+    position: relative;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(10px); /* Efecto cristal moderno */
+}
+
+/* Línea de gradiente neón superior (Sello de Stellar) */
+.form-card-stellar::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, #efa8b0 0%, #a89cc8 50%, #8cc9f0 100%);
+    border-radius: 12px 12px 0 0;
+}
+
+/* --- TÍTULO PRINCIPAL --- */
+.form-card-stellar h2 {
+    color: #ffffff;
+    font-size: 2.2rem;
+    font-weight: 300;
+    letter-spacing: 0.05em;
+    margin-bottom: 40px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    padding-bottom: 15px;
+}
+
+.form-card-stellar h2 i {
+    color: #a89cc8;
+    margin-right: 12px;
+}
+
+/* --- BLOQUES DE CAMPOS (LABELS + INPUTS) --- */
+.form-group-stellar {
+    margin-bottom: 30px;
     display: flex;
     flex-direction: column;
-    transition: transform 0.2s;
 }
 
-.event-card:hover {
-    transform: translateY(-2px);
-}
-
-.event-card-body {
-    padding: 16px;
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-}
-
-.event-date {
-    color: #f02849;
-    font-size: 13px;
+.form-label-stellar {
+    color: #ffffff;
+    font-size: 0.85rem;
     font-weight: 600;
     text-transform: uppercase;
-    margin-bottom: 6px;
-}
-
-.event-title {
-    font-size: 17px;
-    font-weight: 700;
-    color: #e4e6eb;
-    margin-bottom: 4px;
-}
-
-.event-location {
-    color: #b0b3b8;
-    font-size: 14px;
+    letter-spacing: 0.15em;
     margin-bottom: 12px;
+    opacity: 0.8;
 }
 
-.event-desc {
-    color: #e4e6eb;
-    font-size: 14px;
-    flex-grow: 1;
-    margin-bottom: 16px;
-}
-
-/* Botón Asistiré / Unirse */
-.btn-fb-secondary {
-    background-color: #2f3031 !important;
-    color: #e4e6eb !important;
-    border: none;
-    font-weight: 600;
+/* CONTENEDOR INTERNO DE DJANGO (FUERZA EL ANCHO COMPLETO) */
+.input-field-wrapper {
     width: 100%;
-    padding: 8px;
+}
+
+/* --- ESTILIZACIÓN DE ENTRADAS DE TEXTO, TEXTAREAS Y SELECTS --- */
+.form-group-stellar input, 
+.form-group-stellar textarea, 
+.form-group-stellar select {
+    width: 100%; /* Obliga a que se estiren ocupando todo el ancho de la tarjeta */
+    background: rgba(255, 255, 255, 0.03) !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+    border-radius: 6px !important;
+    color: #ffffff !important;
+    padding: 16px 20px !important;
+    font-size: 1rem !important;
+    font-family: 'Source Sans Pro', sans-serif;
+    transition: all 0.3s ease-in-out;
+    box-shadow: inset 0 1px 4px rgba(0,0,0,0.2);
+}
+
+/* Altura ideal para la descripción */
+.form-group-stellar textarea {
+    min-height: 140px;
+    resize: vertical;
+}
+
+/* Efecto de enfoque neón futurista */
+.form-group-stellar input:focus, 
+.form-group-stellar textarea:focus, 
+.form-group-stellar select:focus {
+    outline: none !important;
+    background: rgba(255, 255, 255, 0.06) !important;
+    border-color: #8cc9f0 !important;
+    box-shadow: 0 0 15px rgba(140, 201, 240, 0.3) !important;
+}
+
+/* --- MENSAJES DE ERROR --- */
+.stellar-error-message {
+    color: #efa8b0;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-top: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* --- BOTONES DE ACCIÓN (ABAJO) --- */
+.form-actions-stellar {
+    display: flex;
+    gap: 20px;
+    margin-top: 45px;
+}
+
+.btn-stellar-form {
+    flex: 1; /* Hace que ambos botones tengan el mismo tamaño proporcional */
+    padding: 16px 25px;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
     border-radius: 6px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    transition: all 0.3s ease;
+    border: 1px solid transparent;
 }
 
-.btn-fb-secondary.active {
-    background-color: rgba(45, 136, 255, 0.2) !important;
-    color: #2d88ff !important;
+/* Botón Limpiar */
+.btn-stellar-cancel {
+    background: transparent;
+    color: rgba(255, 255, 255, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-/* Ajuste del Modal para que se vea bien en fondo oscuro */
-.modal-content {
-    background-color: #242526 !important;
+.btn-stellar-cancel:hover {
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.4);
+}
+
+/* Botón Guardar / Publicar */
+.btn-stellar-submit {
+    background: linear-gradient(90deg, #efa8b0 0%, #a89cc8 100%);
+    color: #1d243a;
+    box-shadow: 0 4px 20px rgba(168, 156, 200, 0.2);
+}
+
+.btn-stellar-submit:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(168, 156, 200, 0.4);
+    filter: brightness(1.1);
+}
+
+
+/* --- COMPONENTES ADICIONALES PARA FOROS --- */
+
+/* Ajuste de imágenes de portada en las tarjetas de foros */
+.forum-card-image-wrapper {
+    width: 100%;
+    height: 150px;
+    border-radius: 6px;
+    overflow: hidden;
+    margin-bottom: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.forum-card-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.event-card:hover .forum-card-img {
+    transform: scale(1.05);
+}
+
+/* Botón para limpiar búsquedas del buscador */
+.btn-clear-stellar {
+    position: absolute;
+    right: 15px;
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 1.1rem;
+    transition: color 0.2s;
+}
+
+.btn-clear-stellar:hover {
+    color: #efa8b0;
+}
+
+/* --- MODALES CON ESTILO CRISTAL OSCURO STELLAR --- */
+.style-modal-stellar {
+    background: #181c2b !important; /* Tonalidad profunda alineada a Stellar */
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 12px !important;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6) !important;
+    backdrop-filter: blur(15px);
+}
+
+.style-modal-stellar .modal-body {
+    padding: 20px 25px;
+}
+/* Ajuste de los títulos dentro del modal */
+/* Adapta los select nativos dentro del modal */
+.style-modal-stellar select {
+    width: 100%;
+    padding: 12px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 6px;
     color: white;
-    border: 1px solid #3e4042;
+    outline: none;
 }
-.modal-header, .modal-footer { border: none; }
-.form-control { background-color: #3a3b3c !important; color: white !important; border: 1px solid #3e4042; }
+
+.style-modal-stellar select option {
+    background: #181c2b;
+    color: white;
+}

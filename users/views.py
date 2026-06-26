@@ -134,6 +134,6 @@ def dashboard(request):
 
     return render(
         request,
-        'dashboardUser.html',
+        'dashboard/dashboardUser.html',
         context
     )

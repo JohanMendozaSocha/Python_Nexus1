@@ -1,48 +1,59 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create Forum</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body class="bg-light">
-    <div class="container mt-5">
-        <div class="row justify-content-center">
-            <div class="col-md-6">
-                <div class="card shadow">
-                    <div class="card-header bg-primary text-white">
-                        <h4 class="mb-0">🚀 Create New Forum</h4>
-                    </div>
-                    <div class="card-body">
-                        <form method="POST" enctype="multipart/form-data">
-                            {% csrf_token %}
+{% extends 'dashboard/base.html' %}
+{% load static %}
 
-                            <div class="mb-3">
-                                <label class="form-label">Forum Cover Image (Optional)</label>
-                                 <input type="file" name="imagen" class="form-control" accept="image/*">
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">Forum Title</label>
-                                <input type="text" name="titulo" class="form-control" placeholder="e.g., Python Doubts" required>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">Category (Optional)</label>
-                                <input type="text" name="categoria" class="form-control" placeholder="e.g., Programming...">
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">Description</label>
-                                <textarea name="descripcion" class="form-control" rows="4" placeholder="Explain what this forum is about..." required></textarea>
-                            </div>
-                            <div class="d-flex justify-content-between">
-                                <a href="{% url 'forum_list' %}" class="btn btn-secondary">Cancel</a>
-                                <button type="submit" class="btn btn-success">Publish Forum</button>
-                            </div>
-                        </form>
-                    </div>
+{% block title %}Crear Foro - Nexus{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'createEvent.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="form-container-stellar">
+    <div class="form-card-stellar">
+        <h2>
+            <i class="fa-solid fa-comments header-icon"></i> Crear Nuevo Foro
+        </h2>
+        
+        <form method="POST" enctype="multipart/form-data" class="stellar-form">
+            {% csrf_token %}
+
+            <div class="form-group-stellar">
+                <label class="form-label-stellar">Imagen de Portada (Opcional)</label>
+                <div class="input-field-wrapper">
+                    <input type="file" name="imagen" accept="image/*">
                 </div>
             </div>
-        </div>
+
+            <div class="form-group-stellar">
+                <label class="form-label-stellar">Título del Foro</label>
+                <div class="input-field-wrapper">
+                    <input type="text" name="titulo" placeholder="Ej. Dudas sobre Python / Backend" required>
+                </div>
+            </div>
+
+            <div class="form-group-stellar">
+                <label class="form-label-stellar">Categoría (Opcional)</label>
+                <div class="input-field-wrapper">
+                    <input type="text" name="categoria" placeholder="Ej. Programación, Videojuegos...">
+                </div>
+            </div>
+
+            <div class="form-group-stellar">
+                <label class="form-label-stellar">Descripción</label>
+                <div class="input-field-wrapper">
+                    <textarea name="descripcion" rows="4" placeholder="Explica detalladamente de qué se hablará en este foro..." required></textarea>
+                </div>
+            </div>
+
+            <div class="form-actions-stellar">
+                <button type="reset" class="btn-stellar-form btn-stellar-cancel">
+                    <i class="fa-solid fa-broom"></i> Limpiar Campos
+                </button>
+                <button type="submit" class="btn-stellar-form btn-stellar-submit">
+                    <i class="fa-solid fa-cloud-arrow-up"></i> Publicar Foro
+                </button>
+            </div>
+        </form>
     </div>
-</body>
-</html>
+</div>
+{% endblock %}

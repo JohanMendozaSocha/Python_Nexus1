@@ -1,0 +1,79 @@
+/* Contenedor principal de detalles */
+.event-detail-container {
+    max-width: 900px;
+    margin: 50px auto;
+    background: #141828; /* Color oscuro base */
+    padding: 40px;
+    border-radius: 20px;
+    border: 1px solid rgba(140, 201, 240, 0.2);
+    color: #e0e0e0;
+}
+
+/* Imagen del evento en detalle */
+.detail-img-wrapper {
+    width: 100%;
+    height: 350px;
+    border-radius: 15px;
+    overflow: hidden;
+    margin-bottom: 30px;
+}
+
+.detail-img-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Títulos y tipografía */
+.event-detail-title {
+    color: #ffffff;
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+}
+
+.meta-info {
+    display: flex;
+    gap: 20px;
+    color: #8cc9f0;
+    margin-bottom: 25px;
+    font-weight: 500;
+}
+
+/* Sección de descripción */
+.description-box {
+    line-height: 1.8;
+    margin-bottom: 30px;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 10px;
+}
+
+/* Botones de acción */
+.action-group {
+    display: flex;
+    gap: 15px;
+    margin-top: 30px;
+}
+
+.btn-custom {
+    padding: 12px 25px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s;
+}
+
+.btn-primary-stellar {
+    background: #8cc9f0;
+    color: #141828;
+}
+
+.btn-outline-stellar {
+    border: 1px solid #8cc9f0;
+    color: #8cc9f0;
+}
+
+.btn-custom:hover {
+    filter: brightness(1.2);
+    transform: translateY(-2px);
+}

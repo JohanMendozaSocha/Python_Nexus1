@@ -1,0 +1,102 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+
+{% block title %}Mis Foros - Nexus{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'forumStyle.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="forum-view-container">
+    
+    <div class="forum-header-bar">
+        <h2 class="forum-page-title">
+            <i class="fa-solid fa-folder-open text-primary me-2"></i> Mis Foros Administrados
+        </h2>
+
+        <div class="d-flex align-items-center gap-3">
+            <a href="{% url 'forum_create' %}" class="btn-stellar-action btn-stellar-enter">
+                <i class="fa-solid fa-plus"></i> Nuevo Foro
+            </a>
+
+            <form method="GET" action="{% url 'mis_foros' %}" class="search-form-stellar">
+                <div class="search-input-wrapper">
+                    <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                    <input type="text" name="search" placeholder="Buscar en mis foros..." value="{{ query }}">
+                    {% if query %}
+                        <a href="{% url 'mis_foros' %}" class="btn-clear-stellar">
+                            <i class="fa-solid fa-circle-xmark"></i>
+                        </a>
+                    {% endif %}
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="forum-grid-nexus">
+        {% for foro in foros %}
+            <div class="forum-card-stellar">
+                {% if foro.imagen %}
+                    <div class="forum-card-img-container">
+                        <img src="{{ foro.imagen.url }}" alt="{{ foro.titulo }}">
+                    </div>
+                {% endif %}
+                
+                <div class="forum-card-body-stellar">
+                    <h4 class="forum-card-title-stellar">{{ foro.titulo }}</h4>
+                    
+                    {% if foro.categoria %}
+                        <span class="badge-stellar-category">{{ foro.categoria }}</span>
+                    {% endif %}
+                    
+                    <p class="forum-card-desc-stellar">{{ foro.descripcion|truncatewords:20 }}</p>
+                    
+                    <div class="forum-card-meta-stellar">
+                        <small><i class="fa-solid fa-user me-1"></i> Por: <strong>{{ foro.id_creador|default:"Anónimo" }}</strong></small>
+                    </div>
+                    
+                    <div class="forum-card-actions-stellar">
+                        <a href="{% url 'forum_detail' foro.id %}" class="btn-stellar-action btn-stellar-enter">
+                            <i class="fa-solid fa-door-open"></i> Gestionar
+                        </a>
+                        <a href="{% url 'forum_delete' foro.id %}" class="btn-stellar-action btn-stellar-delete-icon" onclick="return confirm('¿Seguro que quieres eliminar este foro?')">
+                            <i class="fa-solid fa-trash-can"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <div class="forum-empty-state">
+                <p class="text-white-50 lead">Aún no has creado ningún foro de discusión.</p>
+                <a href="{% url 'forum_create' %}" class="btn-stellar-action btn-stellar-enter mt-3">¡Crea el primero aquí!</a>
+            </div>
+        {% endfor %}
+    </div>
+
+    {% if foros.has_other_pages %}
+        <div class="forum-pagination-wrapper">
+            <nav class="pagination-container-stellar">
+                <ul class="pagination-list-stellar">
+                    {% if foros.has_previous %}
+                        <li><a href="?page={{ foros.previous_page_number }}{% if query %}&search={{ query }}{% endif %}" class="page-link-stellar"><i class="fa-solid fa-chevron-left"></i></a></li>
+                    {% endif %}
+
+                    {% for i in foros.paginator.page_range %}
+                        {% if foros.number == i %}
+                            <li><span class="page-link-stellar active">{{ i }}</span></li>
+                        {% else %}
+                            <li><a href="?page={{ i }}{% if query %}&search={{ query }}{% endif %}" class="page-link-stellar">{{ i }}</a></li>
+                        {% endif %}
+                    {% endfor %}
+
+                    {% if foros.has_next %}
+                        <li><a href="?page={{ foros.next_page_number }}{% if query %}&search={{ query }}{% endif %}" class="page-link-stellar"><i class="fa-solid fa-chevron-right"></i></a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+    {% endif %}
+
+</div>
+{% endblock %}

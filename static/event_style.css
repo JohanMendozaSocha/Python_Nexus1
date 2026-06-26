@@ -1,0 +1,67 @@
+/* 1. Hacemos que la tarjeta sea un contenedor flex con dirección columna */
+.event-card-stellar {
+    background: #1c2237;
+    border-radius: 15px;
+    overflow: hidden;
+    border: 1px solid rgba(140, 201, 240, 0.2);
+    transition: transform 0.3s ease;
+    display: flex;        /* Activamos flex */
+    flex-direction: column; /* Alineamos verticalmente */
+}
+
+/* 2. El cuerpo de la tarjeta también será flex para empujar el botón al final */
+.event-card-body-stellar {
+    padding: 20px;
+    flex-grow: 1;         /* Ocupa todo el espacio disponible */
+    display: flex;
+    flex-direction: column;
+}
+
+/* 3. Ajuste de la descripción para limitar el espacio y evitar que crezca */
+.event-description-limited {
+    color: #b0b3b8;
+    margin-bottom: 20px;
+    flex-grow: 1;         /* Esto hace que la descripción llene el hueco sobrante */
+    
+    /* Límites para cortar el texto con "..." */
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* Número de líneas antes de cortar */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    min-height: 4.5em;    /* Asegura un espacio mínimo de 3 líneas */
+}
+
+/* 4. El botón se mantiene al final del contenedor */
+.btn-event-detail {
+    margin-top: auto;    /* Esto lo empuja siempre al fondo del contenedor */
+    display: block;
+    width: 100%;
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #8cc9f0;
+    color: #8cc9f0;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+/* Asegúrate de que este bloque exista y esté así */
+.event-grid-nexus {
+    display: grid;
+    /* Esto es lo que crea la rejilla: 
+       Crea tantas columnas como quepan (min 350px, max 1fr) */
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 30px;
+    width: 100%; /* Asegura que la rejilla ocupe el ancho disponible */
+}
+
+/* Fuerza a la tarjeta a no estirarse fuera de su celda de la rejilla */
+.event-card-stellar {
+    background: #1c2237;
+    border-radius: 15px;
+    overflow: hidden;
+    border: 1px solid rgba(140, 201, 240, 0.2);
+    display: flex;
+    flex-direction: column;
+    width: 100%; /* Se adapta al ancho de la columna de la rejilla */
+}

@@ -1,42 +1,48 @@
+{% extends 'dashboard/base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nexus - Crear Evento</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'createEvent.css' %}">
-</head>
-<body class="bg-dark text-white" style="overflow-y: auto !important; height: auto !important;">
 
-<div class="container mt-5 mb-5" style="max-width: 600px;">
-    <div class="card bg-secondary text-white border-0 shadow-lg p-4" style="background-color: #242526 !important;">
-        <h2 class="mb-4 fw-bold text-primary">🆕 Crear Nuevo Evento</h2>
+{% block title %}Crear Evento - Nexus{% endblock %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'createEvent.css' %}">
+{% endblock %}
+{% block content %}
+<div class="form-container-stellar">
+    <div class="form-card-stellar">
+        <h2>
+            <i class="fa-solid fa-calendar-plus header-icon"></i> Crear Nuevo Evento
+        </h2>
         
-        <form method="POST" action="{% url 'crear_evento' %}">
+        <form method="POST" action="{% url 'crear_evento' %}" class="stellar-form">
             {% csrf_token %}
             
             {% for field in form %}
-                <div class="mb-3">
-                    <label class="form-label fw-bold text-light">{{ field.label }}</label>
-                    {{ field }}
+                <div class="form-group-stellar">
+                    <label class="form-label-stellar">{{ field.label }}</label>
+                    
+                    {# Renderiza el input dinámico de Django #}
+                    <div class="input-field-wrapper">
+                        {{ field }}
+                    </div>
+                    
                     {% if field.errors %}
                         {% for error in field.errors %}
-                            <div class="text-danger small mt-1 fw-bold">⚠️ {{ error }}</div>
+                            <div class="stellar-error-message">
+                                <i class="fa-solid fa-triangle-exclamation"></i> {{ error }}
+                            </div>
                         {% endfor %}
                     {% endif %}
                 </div>
             {% endfor %}
 
-            <div class="d-flex gap-2 mt-4">
-                <a href="{% url 'panel_eventos' %}" class="btn btn-outline-light w-50 fw-bold">Cancelar</a>
-                <button type="submit" class="btn btn-primary w-50 fw-bold" style="background-color: #1877f2; border: none;">Publicar Evento</button>
+            <div class="form-actions-stellar">
+                <button type="reset" class="btn-stellar-form btn-stellar-cancel">
+                    <i class="fa-solid fa-broom"></i> Limpiar Campos
+                </button>
+                <button type="submit" class="btn-stellar-form btn-stellar-submit">
+                    <i class="fa-solid fa-cloud-arrow-up"></i> Publicar Evento
+                </button>
             </div>
         </form>
     </div>
 </div>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+{% endblock %}

@@ -1,0 +1,304 @@
+/* ==========================================================================
+   NEXUS - SISTEMA DE FOROS INDEPENDIENTE (forumStyle.css)
+   ========================================================================== */
+
+.forum-view-container {
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* Distribución del encabezado */
+.forum-header-bar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+@media (max-width: 768px) {
+    .forum-header-bar {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+.forum-page-title {
+    color: #ffffff;
+    font-weight: 300;
+    font-size: 1.8rem;
+    margin: 0;
+}
+
+/* Buscador Estilo Stellar */
+.search-form-stellar .search-input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.search-form-stellar .search-icon {
+    position: absolute;
+    left: 15px;
+    color: rgba(255, 255, 255, 0.4);
+}
+
+.search-form-stellar input {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 20px;
+    color: #ffffff;
+    padding: 10px 20px 10px 40px;
+    font-size: 0.9rem;
+    width: 280px;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.search-form-stellar input:focus {
+    outline: none;
+    border-color: #8cc9f0;
+    box-shadow: 0 0 12px rgba(140, 201, 240, 0.2);
+    width: 320px;
+}
+
+.btn-clear-stellar {
+    position: absolute;
+    right: 15px;
+    color: rgba(255, 255, 255, 0.4);
+}
+
+/* --- GRILLA TOTALMENTE CONTROLADA EN CASILLAS --- */
+.forum-grid-nexus {
+    display: grid;
+    /* Crea automáticamente columnas con un ancho fijo de entre 300px y 350px */
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 25px;
+    width: 100%;
+    margin-bottom: 40px;
+}
+
+/* Estilo individual de cada Casilla (Tarjeta) */
+.forum-card-stellar {
+    background: rgba(20, 24, 40, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
+    transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.forum-card-stellar:hover {
+    transform: translateY(-5px);
+    border-color: rgba(140, 201, 240, 0.4);
+}
+
+/* Ajuste de Portada de la Casilla */
+.forum-card-img-container {
+    width: 100%;
+    height: 150px;
+    overflow: hidden;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.forum-card-img-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.forum-card-body-stellar {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.forum-card-title-stellar {
+    color: #ffffff;
+    font-size: 1.15rem;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+
+.badge-stellar-category {
+    background: rgba(140, 201, 240, 0.1);
+    color: #8cc9f0;
+    border: 1px solid rgba(140, 201, 240, 0.2);
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    align-self: flex-start;
+    margin-bottom: 15px;
+}
+
+.forum-card-desc-stellar {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.88rem;
+    line-height: 1.5;
+    margin-bottom: 20px;
+    flex-grow: 1;
+}
+
+.forum-card-meta-stellar {
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    padding-top: 12px;
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 0.8rem;
+}
+
+/* Botones de acción inferiores */
+.forum-card-actions-stellar {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.btn-stellar-action {
+    padding: 10px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    border-radius: 6px;
+    border: 1px solid transparent;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    text-decoration: none;
+    transition: all 0.2s;
+    cursor: pointer;
+}
+
+.btn-stellar-enter {
+    background: rgba(255, 255, 255, 0.05);
+    color: #ffffff;
+    border-color: rgba(255, 255, 255, 0.1);
+    flex-grow: 1;
+}
+
+.btn-stellar-enter:hover {
+    background: linear-gradient(90deg, #a89cc8 0%, #8cc9f0 100%);
+    color: #141828;
+}
+
+.btn-stellar-report-icon {
+    background: transparent;
+    color: #efa8b0;
+    border-color: rgba(239, 168, 176, 0.2);
+    width: 40px;
+}
+
+.btn-stellar-report-icon:hover {
+    background: rgba(239, 168, 176, 0.1);
+}
+
+/* --- ESTILO DE LOS MODALES DE REPORTE --- */
+.style-modal-stellar {
+    background: #141724 !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    border-radius: 12px !important;
+}
+
+.form-label-stellar {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.8rem;
+}
+
+.form-select-stellar, .form-control-stellar {
+    background: rgba(255, 255, 255, 0.03) !important;
+    border: 1px solid rgba(255, 255, 255, 0.12) !important;
+    color: #ffffff !important;
+    border-radius: 6px;
+    padding: 10px;
+}
+
+.form-select-stellar option {
+    background: #141724;
+}
+
+.btn-stellar-modal {
+    padding: 8px 20px;
+    border-radius: 6px;
+    font-weight: 600;
+    border: 1px solid transparent;
+}
+
+.btn-stellar-modal-cancel {
+    background: transparent;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.btn-stellar-modal-submit {
+    background: #efa8b0;
+    color: #141724;
+}
+
+/* --- CONTENEDOR DE PAGINACIÓN --- */
+.forum-pagination-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.pagination-list-stellar {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    gap: 5px;
+    align-items: center;
+}
+
+.page-link-stellar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: rgba(255, 255, 255, 0.6);
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: 600;
+}
+
+.page-link-stellar:hover, .page-link-stellar.active {
+    background: #a89cc8;
+    color: #141724;
+}
+
+.forum-empty-state {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 40px;
+}
+
+
+.forum-view-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    width: 100%;
+}
+
+.forum-grid-nexus {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 25px;
+    margin-top: 20px;
+}
+
+/* Evita que el contenedor principal del dashboard empuje el diseño */
+.content {
+    display: flex;
+    flex-direction: column;
+}
+
+

@@ -118,3 +118,24 @@ def reportar_contenido(request):
 # 7. VISTA PERSONALIZADA PARA ERROR 404
 def error_404_view(request, exception):
     return render(request, '404.html', status=404)
+
+# forums/views.py
+
+def forum_list_view(request):
+    """Vista para explorar todos los foros"""
+    foros = Foro.objects.all()
+    query = request.GET.get('search', '')
+    if query:
+        foros = foros.filter(titulo__icontains=query)
+    
+    return render(request, 'forums/forum_list.html', {'foros': foros, 'query': query})
+
+def mis_foros_view(request):
+    """Vista exclusiva para ver mis foros"""
+    # Filtramos solo lo del usuario logueado
+    foros = Foro.objects.filter(id_creador=request.user)
+    query = request.GET.get('search', '')
+    if query:
+        foros = foros.filter(titulo__icontains=query)
+        
+    return render(request, 'forums/forum_me.html', {'foros': foros, 'query': query})
