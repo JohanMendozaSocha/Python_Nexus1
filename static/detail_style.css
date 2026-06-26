@@ -1,4 +1,4 @@
-/* 🌌 Contenedor principal de detalles (Tu cuadro oscuro original) */
+
 .event-detail-container {
     max-width: 900px;
     margin: 50px auto;
@@ -11,7 +11,7 @@
     animation: fadeInUpDetail 0.5s ease both;
 }
 
-/* 🖼️ Imagen del evento */
+
 .detail-img-wrapper {
     width: 100%;
     height: 350px;
@@ -26,7 +26,7 @@
     object-fit: cover;
 }
 
-/* 🏷️ Insignias de Estado */
+
 .event-status-badge {
     margin-bottom: 20px;
 }
@@ -44,7 +44,7 @@
 .status-badge.active { background-color: #28a745; color: white; }
 .status-badge.ended { background-color: #dc3545; color: white; }
 
-/* ✏️ Títulos y Tipografía */
+
 .event-detail-title {
     color: #ffffff;
     font-size: 2.5rem;
@@ -59,7 +59,7 @@
     font-weight: 500;
 }
 
-/* 📝 Caja de descripción */
+
 .description-box {
     line-height: 1.8;
     margin-bottom: 30px;
@@ -70,7 +70,7 @@
 
 .description-box h3 { color: #fff; margin-top: 0; }
 
-/* 🔘 Grupo de Botones de Acción Perfectos */
+
 .action-group {
     display: flex;
     gap: 15px;

@@ -1,29 +1,24 @@
-/* --- REGIONES DEL CONTENIDO PRINCIPAL --- */
-
-/* Contenedor padre para centrar el formulario en el espacio derecho de la dashboard */
 .form-container-stellar {
     display: flex;
     justify-content: center;
-    align-items: flex-start; /* Alineado arriba para pantallas largas */
+    align-items: flex-start;
     padding: 40px 20px;
     width: 100%;
     min-height: 80vh;
 }
 
-/* La tarjeta que contiene todo el formulario */
 .form-card-stellar {
     background: rgba(255, 255, 255, 0.02);
     border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 12px;
     padding: 50px;
     width: 100%;
-    max-width: 800px; /* Incrementado para expandir el diseño a la derecha */
+    max-width: 800px;
     position: relative;
     box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
-    backdrop-filter: blur(10px); /* Efecto cristal moderno */
+    backdrop-filter: blur(10px);
 }
 
-/* Línea de gradiente neón superior (Sello de Stellar) */
 .form-card-stellar::before {
     content: '';
     position: absolute;
@@ -35,7 +30,6 @@
     border-radius: 12px 12px 0 0;
 }
 
-/* --- TÍTULO PRINCIPAL --- */
 .form-card-stellar h2 {
     color: #ffffff;
     font-size: 2.2rem;
@@ -51,7 +45,6 @@
     margin-right: 12px;
 }
 
-/* --- BLOQUES DE CAMPOS (LABELS + INPUTS) --- */
 .form-group-stellar {
     margin-bottom: 30px;
     display: flex;
@@ -68,16 +61,14 @@
     opacity: 0.8;
 }
 
-/* CONTENEDOR INTERNO DE DJANGO (FUERZA EL ANCHO COMPLETO) */
 .input-field-wrapper {
     width: 100%;
 }
 
-/* --- ESTILIZACIÓN DE ENTRADAS DE TEXTO, TEXTAREAS Y SELECTS --- */
 .form-group-stellar input, 
 .form-group-stellar textarea, 
 .form-group-stellar select {
-    width: 100%; /* Obliga a que se estiren ocupando todo el ancho de la tarjeta */
+    width: 100%;
     background: rgba(255, 255, 255, 0.03) !important;
     border: 1px solid rgba(255, 255, 255, 0.15) !important;
     border-radius: 6px !important;
@@ -89,13 +80,11 @@
     box-shadow: inset 0 1px 4px rgba(0,0,0,0.2);
 }
 
-/* Altura ideal para la descripción */
 .form-group-stellar textarea {
     min-height: 140px;
     resize: vertical;
 }
 
-/* Efecto de enfoque neón futurista */
 .form-group-stellar input:focus, 
 .form-group-stellar textarea:focus, 
 .form-group-stellar select:focus {
@@ -105,7 +94,6 @@
     box-shadow: 0 0 15px rgba(140, 201, 240, 0.3) !important;
 }
 
-/* --- MENSAJES DE ERROR --- */
 .stellar-error-message {
     color: #efa8b0;
     font-size: 0.85rem;
@@ -116,7 +104,6 @@
     gap: 8px;
 }
 
-/* --- BOTONES DE ACCIÓN (ABAJO) --- */
 .form-actions-stellar {
     display: flex;
     gap: 20px;
@@ -124,7 +111,7 @@
 }
 
 .btn-stellar-form {
-    flex: 1; /* Hace que ambos botones tengan el mismo tamaño proporcional */
+    flex: 1;
     padding: 16px 25px;
     font-family: 'Source Sans Pro', sans-serif;
     font-size: 1rem;
@@ -167,10 +154,6 @@
     filter: brightness(1.1);
 }
 
-
-/* --- COMPONENTES ADICIONALES PARA FOROS --- */
-
-/* Ajuste de imágenes de portada en las tarjetas de foros */
 .forum-card-image-wrapper {
     width: 100%;
     height: 150px;
@@ -191,7 +174,6 @@
     transform: scale(1.05);
 }
 
-/* Botón para limpiar búsquedas del buscador */
 .btn-clear-stellar {
     position: absolute;
     right: 15px;
@@ -204,9 +186,8 @@
     color: #efa8b0;
 }
 
-/* --- MODALES CON ESTILO CRISTAL OSCURO STELLAR --- */
 .style-modal-stellar {
-    background: #181c2b !important; /* Tonalidad profunda alineada a Stellar */
+    background: #181c2b !important;
     border: 1px solid rgba(255, 255, 255, 0.1) !important;
     border-radius: 12px !important;
     box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6) !important;
@@ -216,8 +197,7 @@
 .style-modal-stellar .modal-body {
     padding: 20px 25px;
 }
-/* Ajuste de los títulos dentro del modal */
-/* Adapta los select nativos dentro del modal */
+
 .style-modal-stellar select {
     width: 100%;
     padding: 12px;

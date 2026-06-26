@@ -1,9 +1,6 @@
 from django.db import models
 from django.conf import settings # Para poder jalar el usuario del sistema
 
-    #Esto es para especificarle a Django la estructura de la tabla de eventos de nuestra base de datos,
-    #para evitar errores en los campos ingresados
-
 class Evento(models.Model):
     titulo = models.CharField(max_length=255)
     descripcion = models.TextField()
