@@ -1,15 +1,13 @@
-/* Contenedor principal de detalles */
 .event-detail-container {
     max-width: 900px;
     margin: 50px auto;
-    background: #141828; /* Color oscuro base */
+    background: #141828;
     padding: 40px;
     border-radius: 20px;
     border: 1px solid rgba(140, 201, 240, 0.2);
     color: #e0e0e0;
 }
 
-/* Imagen del evento en detalle */
 .detail-img-wrapper {
     width: 100%;
     height: 350px;
@@ -39,7 +37,6 @@
     font-weight: 500;
 }
 
-/* Sección de descripción */
 .description-box {
     line-height: 1.8;
     margin-bottom: 30px;
@@ -48,7 +45,6 @@
     border-radius: 10px;
 }
 
-/* Botones de acción */
 .action-group {
     display: flex;
     gap: 15px;

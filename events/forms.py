@@ -7,7 +7,6 @@ class EventoForm(forms.ModelForm):
         model = Evento
         fields = ['titulo', 'descripcion', 'ubicacion', 'f_inicio', 'f_fin', 'categoria']
         
-        # 🌟 Etiquetas visibles en el HTML en español
         labels = {
             'titulo': 'Título',
             'descripcion': 'Descripción',
@@ -17,7 +16,6 @@ class EventoForm(forms.ModelForm):
             'categoria': 'Categoría',
         }
         
-        # Widgets con marcadores en español
         widgets = {
             'titulo': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Título del evento'}),
             'descripcion': forms.Textarea(attrs={'class': 'form-control', 'rows': 3, 'placeholder': 'Describe tu evento...'}),
@@ -37,16 +35,13 @@ class EventoForm(forms.ModelForm):
         fecha_inicio = cleaned_data.get('f_inicio')
         fecha_fin = cleaned_data.get('f_fin')
         
-        # El "ahora" actual respetando America/Bogota
         ahora = timezone.now()
 
-        # Forzar que ambas fechas tengan zona horaria activa si por alguna razón vienen "naive"
         if fecha_inicio and timezone.is_naive(fecha_inicio):
             fecha_inicio = timezone.make_aware(fecha_inicio, timezone.get_current_timezone())
         if fecha_fin and timezone.is_naive(fecha_fin):
             fecha_fin = timezone.make_aware(fecha_fin, timezone.get_current_timezone())
 
-        # 🌟 Validaciones limpias
         if fecha_inicio and fecha_inicio < ahora:
             self.add_error('f_inicio', "¡No puedes crear un evento en el pasado!")
 

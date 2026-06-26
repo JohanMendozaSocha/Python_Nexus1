@@ -1,7 +1,3 @@
-/* ==========================================================================
-   NEXUS - SISTEMA DE FOROS INDEPENDIENTE (forumStyle.css)
-   ========================================================================== */
-
 .forum-view-container {
     width: 100%;
     padding: 20px;
@@ -69,7 +65,6 @@
     color: rgba(255, 255, 255, 0.4);
 }
 
-/* --- GRILLA TOTALMENTE CONTROLADA EN CASILLAS --- */
 .forum-grid-nexus {
     display: grid;
     /* Crea automáticamente columnas con un ancho fijo de entre 300px y 350px */
@@ -79,7 +74,6 @@
     margin-bottom: 40px;
 }
 
-/* Estilo individual de cada Casilla (Tarjeta) */
 .forum-card-stellar {
     background: rgba(20, 24, 40, 0.6);
     border: 1px solid rgba(255, 255, 255, 0.08);
@@ -98,7 +92,6 @@
     border-color: rgba(140, 201, 240, 0.4);
 }
 
-/* Ajuste de Portada de la Casilla */
 .forum-card-img-container {
     width: 100%;
     height: 150px;
@@ -153,7 +146,6 @@
     font-size: 0.8rem;
 }
 
-/* Botones de acción inferiores */
 .forum-card-actions-stellar {
     display: flex;
     gap: 10px;
@@ -198,7 +190,6 @@
     background: rgba(239, 168, 176, 0.1);
 }
 
-/* --- ESTILO DE LOS MODALES DE REPORTE --- */
 .style-modal-stellar {
     background: #141724 !important;
     border: 1px solid rgba(255, 255, 255, 0.08) !important;
@@ -239,7 +230,6 @@
     color: #141724;
 }
 
-/* --- CONTENEDOR DE PAGINACIÓN --- */
 .forum-pagination-wrapper {
     display: flex;
     justify-content: center;
@@ -295,7 +285,6 @@
     margin-top: 20px;
 }
 
-/* Evita que el contenedor principal del dashboard empuje el diseño */
 .content {
     display: flex;
     flex-direction: column;

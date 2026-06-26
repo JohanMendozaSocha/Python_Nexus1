@@ -1,9 +1,3 @@
-/*
-    Stellar Theme Integration for Nexus Dashboard
-    Inspired by HTML5 UP (html5up.net)
-*/
-
-/* --- Importación de Tipografía Stellar --- */
 @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,300;0,400;0,600;1,300&display=swap');
 
 * {
@@ -14,7 +8,6 @@
 }
 
 body {
-    /* Fondo oscuro estrellado/espacial característico */
     background-color: #1d243a;
     background-image: radial-gradient(circle at top right, #2c2560 0%, #141829 60%);
     color: #dddddd;
@@ -26,7 +19,6 @@ body {
     min-height: 100vh;
 }
 
-/* --- SIDEBAR (MENÚ LATERAL STELLAR) --- */
 .sidebar {
     width: 260px;
     background: rgba(20, 24, 41, 0.85);
@@ -42,7 +34,6 @@ body {
     letter-spacing: 0.2em;
     margin-bottom: 40px;
     text-align: center;
-    /* Efecto de texto brillante sutil */
     text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
 }
 
@@ -67,22 +58,19 @@ body {
     border: 1px solid transparent;
 }
 
-/* --- ALINEACIÓN DE ICONOS PROFESIONALES --- */
 
 .sidebar-icon {
     margin-right: 12px;
-    width: 20px; /* Ancho fijo para que todos los textos se alineen perfectamente en vertical */
+    width: 20px; 
     text-align: center;
-    color: rgba(255, 255, 255, 0.4); /* Un tono más suave en reposo */
+    color: rgba(255, 255, 255, 0.4); 
     transition: color 0.3s ease;
 }
 
-/* Al pasar el mouse por la opción, el icono se enciende en blanco */
 .sidebar a:hover .sidebar-icon {
     color: #ffffff;
 }
 
-/* Icono de cerrar sesión */
 .logout-icon {
     margin-right: 12px;
     color: #efa8b0;
@@ -101,7 +89,6 @@ body {
     transform: translateX(4px);
 }
 
-/* --- CONTENIDO PRINCIPAL --- */
 .content {
     flex: 1;
     padding: 50px 40px;
@@ -116,7 +103,6 @@ body {
     margin-bottom: 40px;
 }
 
-/* --- TARJETAS DE MÉTRICAS (MÉTODO STELLAR STATS) --- */
 .cards {
     display: flex;
     gap: 25px;
@@ -125,7 +111,6 @@ body {
 }
 
 .card {
-    /* Fondo translúcido tipo cristal */
     background: rgba(255, 255, 255, 0.03);
     border: 1px solid rgba(255, 255, 255, 0.07);
     padding: 30px 25px;
@@ -141,7 +126,6 @@ body {
     transform: translateY(-5px);
 }
 
-/* Línea de color degradada superior icónica de Stellar */
 .card::before {
     content: '';
     position: absolute;
@@ -166,7 +150,6 @@ body {
     letter-spacing: 0.15em;
 }
 
-/* --- CONTENEDORES DE TABLAS --- */
 .table-container {
     background: rgba(255, 255, 255, 0.02);
     border: 1px solid rgba(255, 255, 255, 0.07);
@@ -183,7 +166,6 @@ body {
     margin-bottom: 20px;
 }
 
-/* --- TABLAS ESTILO CLEAN STELLAR --- */
 table {
     width: 100%;
     border-collapse: collapse;
@@ -224,12 +206,11 @@ td[colspan="3"], td:only-child {
     padding: 30px;
 }
 
-/* --- REDISEÑO MINIMALISTA DE CERRAR SESIÓN (STELLAR STYLE) --- */
 
 .sidebar-logout-container {
-    margin-top: 50px !important; /* Lo empuja hacia abajo, separándolo del menú principal */
+    margin-top: 50px !important;
     padding-top: 20px;
-    border-top: 1px solid rgba(255, 255, 255, 0.05); /* Línea divisoria muy sutil */
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .logout-form {
@@ -241,32 +222,30 @@ td[colspan="3"], td:only-child {
     width: 100%;
     background: none;
     border: none;
-    color: rgba(255, 255, 255, 0.4); /* Color tenue en reposo para no competir con el Dashboard */
+    color: rgba(255, 255, 255, 0.4);
     padding: 12px 15px;
     font-size: 0.95rem;
     font-family: 'Source Sans Pro', sans-serif;
     cursor: pointer;
     display: flex;
     align-items: center;
-    gap: 12px; /* Espacio perfecto entre el icono y el texto */
+    gap: 12px;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     border-radius: 6px;
 }
 
-/* Cambios cinéticos y estéticos en el Hover */
 .logout-link:hover {
-    color: #efa8b0; /* El rosa coral insignia de Stellar */
-    background: rgba(239, 168, 176, 0.05); /* Fondo suave translúcido */
-    padding-left: 20px; /* Sutil desplazamiento hacia la derecha al estilo premium */
+    color: #efa8b0;
+    background: rgba(239, 168, 176, 0.05);
+    padding-left: 20px;
 }
 
-/* Animación sutil para el icono al hacer hover */
 .logout-link i {
     font-size: 1rem;
     transition: transform 0.3s ease;
 }
 
 .logout-link:hover i {
-    transform: translateX(3px); /* El icono se mueve ligeramente indicando "salida" */
+    transform: translateX(3px);
     color: #efa8b0;
 }

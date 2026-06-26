@@ -58,15 +58,6 @@ def register_view(request):
         clave = request.POST.get('password')
         confirmar_clave = request.POST.get('confirm_password')
 
-        # Validar que el nombre tenga mínimo 7 caracteres
-        if len(nombres.strip()) < 7:
-            messages.error(
-                request,
-                "El nombre debe tener mínimo 7 caracteres."
-            )
-            return redirect('register')
-
-        # Validar que el nombre de usuario tenga mínimo 7 caracteres
         if len(usuario.strip()) < 7:
             messages.error(
                 request,
@@ -74,7 +65,6 @@ def register_view(request):
             )
             return redirect('register')
 
-        # Validar que la contraseña tenga mínimo 7 caracteres
         if len(clave) < 7:
             messages.error(
                 request,
@@ -82,7 +72,6 @@ def register_view(request):
             )
             return redirect('register')
 
-        # Validar que las contraseñas coincidan
         if clave != confirmar_clave:
 
             messages.error(
@@ -92,7 +81,6 @@ def register_view(request):
 
             return redirect('register')
 
-        # Validar usuario repetido
         if Usuario.objects.filter(username=usuario).exists():
 
             messages.error(
@@ -102,7 +90,7 @@ def register_view(request):
 
             return redirect('register')
 
-        # Validar correo repetido
+
         if Usuario.objects.filter(email=correo).exists():
 
             messages.error(
@@ -112,7 +100,6 @@ def register_view(request):
 
             return redirect('register')
 
-        # Crear usuario
         user = Usuario.objects.create_user(
             username=usuario,
             email=correo,

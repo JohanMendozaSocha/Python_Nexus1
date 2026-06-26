@@ -1,21 +1,17 @@
-/* forumDetails.css */
-
-/* Contenedor principal que permite expandirse más que el resto */
 .forum-detail-container {
-    max-width: 1400px; /* Se extiende más en pantallas grandes */
-    width: 95%;        /* Respeta márgenes en móviles */
-    margin: 40px auto; /* Centrado y con aire arriba/abajo */
+    max-width: 1400px;
+    width: 95%;        
+    margin: 40px auto; 
     display: flex;
     flex-direction: column;
-    gap: 30px;         /* Espacio entre bloques */
+    gap: 30px;      
 }
 
-/* Header del foro (Título y descripción) */
 .forum-header-box {
-    background: #1c2237; /* Color de tu plataforma */
+    background: #1c2237;
     padding: 40px;
     border-radius: 15px;
-    border-left: 6px solid #8cc9f0; /* Acento de color */
+    border-left: 6px solid #8cc9f0;
     box-shadow: 0 4px 15px rgba(0,0,0,0.3);
 }
 
@@ -25,14 +21,12 @@
     margin-bottom: 15px;
 }
 
-/* Área de comentarios y formulario */
 .forum-content-section {
     display: grid;
-    grid-template-columns: 1fr; /* Una sola columna por defecto */
+    grid-template-columns: 1fr;
     gap: 20px;
 }
 
-/* Caja de escritura (Formulario) más elegante */
 .reply-form-wrapper {
     background: #1c2237;
     padding: 30px;
@@ -51,7 +45,6 @@
     min-height: 150px;
 }
 
-/* Botón de envío */
 .btn-submit-reply {
     background: linear-gradient(90deg, #a89cc8 0%, #8cc9f0 100%);
     color: #141828;
