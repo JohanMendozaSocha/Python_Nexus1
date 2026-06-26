@@ -32,8 +32,9 @@ class Usuario(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(unique=True, validators=[EmailValidator()])
     username = models.CharField(max_length=150, unique=True)
 
-    password = models.CharField(max_length=255)
-
+    #Elimine en la q se definia la contraseña manualemnte, porq la calse usuario esta heredando de abstractbaseUser,
+    #para evitar futuros problemas de q dijango de confunde con cual usar.
+    
     # Equivalente a @ManyToOne
     rol = models.ForeignKey(
         'Rol',
