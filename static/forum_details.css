@@ -58,3 +58,55 @@
 .btn-submit-reply:hover {
     transform: scale(1.02);
 }
+
+/* Estilo para cada comentario individual */
+.comment-card {
+    background: #141828; /* Un poco más oscuro que el contenedor */
+    padding: 20px;
+    border-radius: 12px;
+    border: 1px solid rgba(140, 201, 240, 0.1);
+    transition: transform 0.2s;
+    position: relative;
+    margin-bottom: 10px;
+}
+
+.comment-card:hover {
+    border-color: rgba(140, 201, 240, 0.3);
+}
+
+/* Encabezado del comentario (Usuario + Fecha) */
+.comment-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    padding-bottom: 8px;
+}
+
+.user-name {
+    color: #8cc9f0;
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+.timestamp {
+    color: #6c757d;
+    font-size: 0.8rem;
+}
+
+/* El texto del comentario */
+.comment-body {
+    color: #e0e0e0;
+    line-height: 1.6;
+    font-size: 1rem;
+}
+
+/* Botón de eliminar con estilo discreto */
+.btn-delete-comment {
+    color: #ff6b6b;
+    font-size: 0.8rem;
+    text-decoration: none;
+    margin-top: 10px;
+    display: inline-block;
+}

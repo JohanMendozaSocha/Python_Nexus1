@@ -1,32 +1,77 @@
-{% extends 'dashboard/base.html' %}
-{% load static %}
-
-{% block extra_css %}
-<link rel="stylesheet" href="{% static 'forum_details.css' %}">
-{% endblock %}
-
-{% block content %}
+{% extends 'dashboard/base.html' %} {% load static %} {% block extra_css %}
+<link rel="stylesheet" href="{% static 'forum_details.css' %}" />
+{% endblock %} {% block content %}
 <div class="forum-detail-container">
+  <div class="forum-header-box">
+    <h2>{{ foro.titulo }}</h2>
+    <p class="text-light">{{ foro.descripcion }}</p>
+  </div>
 
-    <div class="forum-header-box">
-        <h2>{{ foro.titulo }}</h2>
-        <p class="text-light">{{ foro.descripcion }}</p>
+  <div id="comment-list" class="forum-content-section">
+    {% for pub in publicaciones %}
+    <div class="comment-card">
+      <div class="comment-meta">
+        <span class="user-name"
+          ><i class="fa-solid fa-user me-2"></i>{{ pub.id_usuario.username
+          }}</span
+        >
+        <span class="timestamp">{{ pub.created_at|date:"d M, Y H:i" }}</span>
+      </div>
+      <div class="comment-body">{{ pub.contenido }}</div>
     </div>
+    {% empty %}
+    <p id="no-comments-msg" class="text-white-50 text-center py-4">
+      No hay respuestas aún.
+    </p>
+    {% endfor %}
+  </div>
 
-    <div class="forum-content-section">
-        {% for pub in publicaciones %}
-           {% endfor %}
-    </div>
-
-    <div class="reply-form-wrapper">
-        <h5 class="text-white mb-3">✍️ Escribir respuesta</h5>
-        <form method="POST" enctype="multipart/form-data">
-            {% csrf_token %}
-            <textarea name="contenido" required></textarea>
-            <input type="file" name="imagen" class="text-white mt-2">
-            <button type="submit" class="btn-submit-reply mt-3">Enviar Respuesta</button>
-        </form>
-    </div>
-
+  <div class="reply-form-wrapper">
+    <h5 class="text-white mb-3">Escribir respuesta</h5>
+    <form id="reply-form">
+      {% csrf_token %}
+      <textarea id="reply-content" name="contenido" required></textarea>
+      <button type="button" id="submit-btn" class="btn-submit-reply mt-3">
+        Enviar Respuesta
+      </button>
+    </form>
+  </div>
 </div>
+
+<script>
+  document.getElementById("submit-btn").addEventListener("click", function () {
+    let form = document.getElementById("reply-form");
+    let formData = new FormData(form);
+
+    // Obtener el token CSRF del input oculto de Django
+    let csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value;
+
+    fetch(window.location.href, {
+      method: "POST",
+      body: formData,
+      headers: {
+        "X-Requested-With": "XMLHttpRequest",
+        "X-CSRFToken": csrfToken, // Obligatorio para Django
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.success) {
+          let newComment = `
+                <div class="comment-card">
+                    <div class="comment-meta">
+                        <span class="user-name">${data.username}</span>
+                        <span class="timestamp">Ahora mismo</span>
+                    </div>
+                    <div class="comment-body">${data.contenido}</div>
+                </div>`;
+          document
+            .getElementById("comment-list")
+            .insertAdjacentHTML("beforeend", newComment);
+          document.getElementById("no-comments-msg")?.remove(); // Quita el mensaje vacío si existe
+          document.getElementById("reply-content").value = "";
+        }
+      });
+  });
+</script>
 {% endblock %}

@@ -1,145 +1,155 @@
-{% extends 'dashboard/base.html' %}
-{% load static %}
+{% extends 'dashboard/base.html' %} 
+{% load static %} 
 
-{% block title %}Foros Globales - Nexus{% endblock %}
+{% block title %}Foros Globales - Nexus{% endblock %} 
 
 {% block extra_css %}
-<link rel="stylesheet" href="{% static 'forumStyle.css' %}">
-{% endblock %}
+<link rel="stylesheet" href="{% static 'forumStyle.css' %}" />
+{% endblock %} 
 
 {% block content %}
 <div class="forum-view-container">
-    
-    <div class="forum-header-bar">
-        <h2 class="forum-page-title">
-            <i class="fa-solid fa-earth-americas text-primary me-2"></i> Foros de Discusión Global
-        </h2>
+  <div class="forum-header-bar">
+    <h2 class="forum-page-title">
+      <i class="fa-solid fa-earth-americas text-primary me-2"></i> Foros de Discusión Global
+    </h2>
 
-        <div class="d-flex align-items-center gap-3">
-            <a href="{% url 'forum_create' %}" class="btn-stellar-action btn-stellar-enter" style="background: linear-gradient(90deg, #a89cc8 0%, #8cc9f0 100%); color: #141828; white-space: nowrap;">
-                <i class="fa-solid fa-plus"></i> Nuevo Foro
+    <div class="d-flex align-items-center gap-3">
+      <form method="GET" action="{% url 'forum_list' %}" class="search-form-stellar">
+        <div class="search-input-wrapper">
+          <i class="fa-solid fa-magnifying-glass search-icon"></i>
+          <input type="text" name="search" placeholder="Buscar foros..." value="{{ query }}" />
+          {% if query %}
+          <a href="{% url 'forum_list' %}" class="btn-clear-stellar">
+            <i class="fa-solid fa-circle-xmark"></i>
+          </a>
+          {% endif %}
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="forum-grid-nexus">
+    {% for foro in foros %}
+      <div class="forum-card-stellar">
+        {% if foro.imagen %}
+        <div class="forum-card-img-container">
+          <img src="{{ foro.imagen.url }}" alt="{{ foro.titulo }}" />
+        </div>
+        {% endif %}
+
+        <div class="forum-card-body-stellar">
+          <h4 class="forum-card-title-stellar">{{ foro.titulo }}</h4>
+
+          {% if foro.categoria %}
+          <span class="badge-stellar-category">{{ foro.categoria }}</span>
+          {% endif %}
+
+          <p class="forum-card-desc-stellar">
+            {{ foro.descripcion|truncatewords:20 }}
+          </p>
+
+          <div class="forum-card-meta-stellar">
+            <small><i class="fa-solid fa-user me-1"></i> Por: <strong>{{ foro.id_creador|default:"Anónimo" }}</strong></small>
+            <div class="mt-2">
+              <span class="badge" style="background: rgba(140, 201, 240, 0.2); color: #8cc9f0; padding: 5px 10px; border-radius: 5px; font-size: 0.75rem;">
+                <i class="fa-solid fa-comments me-1"></i> {{ foro.num_respuestas }} respuestas
+              </span>
+            </div>
+          </div>
+
+          <div class="forum-card-actions-stellar">
+            {% if user.is_authenticated %}
+            <a href="{% url 'forum_detail' foro.id %}" class="btn-stellar-action btn-stellar-enter">
+              <i class="fa-solid fa-door-open"></i> Entrar
             </a>
-
-            <form method="GET" action="{% url 'forum_list' %}" class="search-form-stellar">
-                <div class="search-input-wrapper">
-                    <i class="fa-solid fa-magnifying-glass search-icon"></i>
-                    <input type="text" name="search" placeholder="Buscar foros..." value="{{ query }}">
-                    {% if query %}
-                        <a href="{% url 'forum_list' %}" class="btn-clear-stellar">
-                            <i class="fa-solid fa-circle-xmark"></i>
-                        </a>
-                    {% endif %}
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <div class="forum-grid-nexus">
-        {% for foro in foros %}
-            <div class="forum-card-stellar">
-                
-                {% if foro.imagen %}
-                    <div class="forum-card-img-container">
-                        <img src="{{ foro.imagen.url }}" alt="{{ foro.titulo }}">
-                    </div>
-                {% endif %}
-                
-                <div class="forum-card-body-stellar">
-                    <h4 class="forum-card-title-stellar">{{ foro.titulo }}</h4>
-                    
-                    {% if foro.categoria %}
-                        <span class="badge-stellar-category">{{ foro.categoria }}</span>
-                    {% endif %}
-                    
-                    <p class="forum-card-desc-stellar">{{ foro.descripcion|truncatewords:20 }}</p>
-                    
-                    <div class="forum-card-meta-stellar">
-                        <small><i class="fa-solid fa-user me-1"></i> Por: <strong>{{ foro.id_creador|default:"Anónimo" }}</strong></small>
-                    </div>
-                    
-                    <div class="forum-card-actions-stellar">
-                        <a href="{% url 'forum_detail' foro.id %}" class="btn-stellar-action btn-stellar-enter">
-                            <i class="fa-solid fa-door-open"></i> Entrar
-                        </a>
-
-                        {% if foro.id_creador == user %}
-                            <a href="{% url 'forum_detail' foro.id %}" class="btn-stellar-action btn-stellar-delete-icon" style="color: #8cc9f0; border-color: rgba(140, 201, 240, 0.2);" title="Administrar mi foro">
-                                <i class="fa-solid fa-user-gear"></i>
-                            </a>
-                        {% elif user.is_authenticated %}
-                            <button type="button" class="btn-stellar-action btn-stellar-report-icon" data-bs-toggle="modal" data-bs-target="#reportForum{{ foro.id }}" title="Reportar Foro">
-                                <i class="fa-solid fa-triangle-exclamation"></i>
-                            </button>
-                        {% endif %}
-                    </div>
-                </div>
-            </div>
-
-            {% if foro.id_creador != user and user.is_authenticated %}
-                <div class="modal fade" id="reportForum{{ foro.id }}" tabindex="-1" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-content style-modal-stellar">
-                            <form method="POST" action="{% url 'report_content' %}">
-                                {% csrf_token %}
-                                <input type="hidden" name="foro_id" value="{{ foro.id }}">
-                                <div class="modal-header border-0 pb-0">
-                                    <h5 class="modal-title text-white"><i class="fa-solid fa-flag text-danger me-2"></i> Reportar Foro</h5>
-                                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body py-3">
-                                    <div class="mb-3 d-flex flex-column text-start">
-                                        <label class="form-label-stellar mb-2">Motivo del reporte</label>
-                                        <select name="motivo" class="form-select-stellar">
-                                            <option value="SPAM">Spam / Publicidad</option>
-                                            <option value="HARASSMENT">Acoso / Lenguaje de odio</option>
-                                            <option value="INAPPROPRIATE">Contenido Inapropiado</option>
-                                            <option value="OTHER">Otro</option>
-                                        </select>
-                                    </div>
-                                    <div class="d-flex flex-column text-start">
-                                        <label class="form-label-stellar mb-2">Comentarios adicionales</label>
-                                        <textarea name="comentario" class="form-control-stellar" rows="3" placeholder="Detalles del reporte..."></textarea>
-                                    </div>
-                                </div>
-                                <div class="modal-footer border-0 pt-0">
-                                    <button type="button" class="btn-stellar-modal btn-stellar-modal-cancel" data-bs-dismiss="modal">Cancelar</button>
-                                    <button type="submit" class="btn-stellar-modal btn-stellar-modal-submit">Enviar Reporte</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
+            {% endif %} 
+            
+            {% if foro.id_creador == user %}
+            <span class="ms-2 text-info" title="Eres el creador"><i class="fa-solid fa-user-gear"></i></span>
+            {% else %}
+            <button type="button" class="btn-stellar-action btn-stellar-report-icon" data-bs-toggle="modal" data-bs-target="#reportForum{{ foro.id }}">
+              <i class="fa-solid fa-triangle-exclamation"></i>
+            </button>
             {% endif %}
-        {% empty %}
-            <div class="forum-empty-state">
-                <p class="text-white-50 lead">No hay foros globales disponibles en este momento.</p>
-            </div>
-        {% endfor %}
-    </div>
-
-    {% if foros.has_other_pages %}
-        <div class="forum-pagination-wrapper">
-            <nav class="pagination-container-stellar">
-                <ul class="pagination-list-stellar">
-                    {% if foros.has_previous %}
-                        <li><a href="?page={{ foros.previous_page_number }}{% if query %}&search={{ query }}{% endif %}" class="page-link-stellar"><i class="fa-solid fa-chevron-left"></i></a></li>
-                    {% endif %}
-
-                    {% for i in foros.paginator.page_range %}
-                        {% if foros.number == i %}
-                            <li><span class="page-link-stellar active">{{ i }}</span></li>
-                        {% else %}
-                            <li><a href="?page={{ i }}{% if query %}&search={{ query }}{% endif %}" class="page-link-stellar">{{ i }}</a></li>
-                        {% endif %}
-                    {% endfor %}
-
-                    {% if foros.has_next %}
-                        <li><a href="?page={{ foros.next_page_number }}{% if query %}&search={{ query }}{% endif %}" class="page-link-stellar"><i class="fa-solid fa-chevron-right"></i></a></li>
-                    {% endif %}
-                </ul>
-            </nav>
+          </div>
         </div>
-    {% endif %}
+      </div>
 
+      {% if foro.id_creador != user and user.is_authenticated %}
+      <div class="modal fade" id="reportForum{{ foro.id }}" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content style-modal-stellar">
+            <form method="POST" action="{% url 'report_content' %}">
+              {% csrf_token %}
+              <input type="hidden" name="foro_id" value="{{ foro.id }}" />
+              <div class="modal-header border-0 pb-0">
+                <h5 class="modal-title text-white"><i class="fa-solid fa-flag text-danger me-2"></i> Reportar Foro</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body py-3">
+                <div class="mb-3 d-flex flex-column text-start">
+                  <label class="form-label-stellar mb-2">Motivo del reporte</label>
+                  <select name="motivo" class="form-select-stellar">
+                    <option value="SPAM">Spam / Publicidad</option>
+                    <option value="HARASSMENT">Acoso / Lenguaje de odio</option>
+                    <option value="INAPPROPRIATE">Contenido Inapropiado</option>
+                    <option value="OTHER">Otro</option>
+                  </select>
+                </div>
+                <div class="d-flex flex-column text-start">
+                  <label class="form-label-stellar mb-2">Comentarios adicionales</label>
+                  <textarea name="comentario" class="form-control-stellar" rows="3" placeholder="Detalles del reporte..."></textarea>
+                </div>
+              </div>
+              <div class="modal-footer border-0 pt-0">
+                <button type="button" class="btn-stellar-modal btn-stellar-modal-cancel" data-bs-dismiss="modal">Cancelar</button>
+                <button type="submit" class="btn-stellar-modal btn-stellar-modal-submit">Enviar Reporte</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      {% endif %}
+    {% empty %}
+      <div class="forum-empty-state">
+        <p class="text-white-50 lead">No hay foros globales disponibles en este momento.</p>
+      </div>
+    {% endfor %}
+  </div>
+
+  {% if foros.has_other_pages %}
+  <div class="forum-pagination-wrapper">
+    <nav class="pagination-container-stellar">
+      <ul class="pagination-list-stellar">
+        {% if foros.has_previous %}
+        <li>
+          <a href="?page={{ foros.previous_page_number }}{% if query %}&search={{ query }}{% endif %}" class="page-link-stellar">
+            <i class="fa-solid fa-chevron-left"></i>
+          </a>
+        </li>
+        {% endif %} 
+        
+        {% for i in foros.paginator.page_range %} 
+          {% if foros.number == i %}
+          <li><span class="page-link-stellar active">{{ i }}</span></li>
+          {% else %}
+          <li>
+            <a href="?page={{ i }}{% if query %}&search={{ query }}{% endif %}" class="page-link-stellar">{{ i }}</a>
+          </li>
+          {% endif %} 
+        {% endfor %} 
+        
+        {% if foros.has_next %}
+        <li>
+          <a href="?page={{ foros.next_page_number }}{% if query %}&search={{ query }}{% endif %}" class="page-link-stellar">
+            <i class="fa-solid fa-chevron-right"></i>
+          </a>
+        </li>
+        {% endif %}
+      </ul>
+    </nav>
+  </div>
+  {% endif %}
 </div>
 {% endblock %}

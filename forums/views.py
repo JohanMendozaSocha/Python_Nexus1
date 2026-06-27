@@ -1,11 +1,14 @@
+from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .models import Foro, Publicacion, Reporte
+from django.db.models import Count
 
 # 1. VER TODOS LOS FOROS
 
 def lista_foros(request):
-    
+
+    foros = Foro.objects.annotate(num_respuestas=Count('publicacion')).order_by('-created_at')
     query = request.GET.get('search', '')
     
     if query:
@@ -19,33 +22,37 @@ def lista_foros(request):
         'foros': foros,
         'query': query  
     })
+
 # 2. VER UN FORO Y SUS COMENTARIOS 
 def detalle_foro(request, foro_id):
     foro = get_object_or_404(Foro, id=foro_id)
     
-    publicaciones = Publicacion.objects.filter(id_foro=foro).order_by('created_at')
-    
-   
     if request.method == 'POST':
-        if not request.user.is_authenticated:
-            return redirect('login') 
-            
-        contenido = request.POST.get('contenido')
-        titulo = request.POST.get('titulo', 'Respuesta') 
+        # Detectar si es una petición AJAX (JS) o normal
+        is_ajax = request.headers.get('x-requested-with') == 'XMLHttpRequest'
         
+        contenido = request.POST.get('contenido')
         if contenido:
-            Publicacion.objects.create(
-                titulo=titulo,
+            nueva_pub = Publicacion.objects.create(
                 contenido=contenido,
                 id_foro=foro,
                 id_usuario=request.user
             )
+            
+            if is_ajax:
+                return JsonResponse({
+                    'success': True,
+                    'username': request.user.username,
+                    'contenido': nueva_pub.contenido
+                })
             return redirect('forum_detail', foro_id=foro.id)
 
+    publicaciones = Publicacion.objects.filter(id_foro=foro).order_by('created_at')
     return render(request, 'forums/forum_detail.html', {
         'foro': foro,
         'publicaciones': publicaciones
     })
+ 
 
 # 3. CREAR UN FORO 
 @login_required
@@ -132,7 +139,7 @@ def forum_list_view(request):
 
 def mis_foros_view(request):
     """Vista exclusiva para ver mis foros"""
-    # Filtramos solo lo del usuario logueado
+    
     foros = Foro.objects.filter(id_creador=request.user)
     query = request.GET.get('search', '')
     if query:

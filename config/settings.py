@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-53@d##$rcl$=!-x**lf041(+r6uhkoi#$ah9ol_0dbnx9&8vsm
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -139,3 +139,7 @@ STATICFILES_DIRS = [                     # Configuración de carpeta estática g
 
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+CSRF_TRUSTED_ORIGINS = [
+    'https://thermos-obsessed-shortage.ngrok-free.dev',
+]
